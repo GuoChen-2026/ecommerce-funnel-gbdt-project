@@ -44,3 +44,9 @@ venv/
 # =========================
 .vscode/
 .idea/
+
+# =========================
+# CatBoost training logs
+# =========================
+catboost_info/
+notebooks/catboost_info/
