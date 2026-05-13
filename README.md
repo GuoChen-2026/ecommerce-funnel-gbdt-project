@@ -33,52 +33,137 @@
 
 ---
 
-## 3. 数据说明
+## 3. 数据来源与文件说明
 
-本项目使用电商行为日志数据，原始字段包括：
+### 数据来源
+
+本项目使用公开电商行为数据集：
+
+```text
+eCommerce behavior data from multi category store
+```
+
+数据来源：Kaggle
+
+```text
+https://www.kaggle.com/datasets/mkechinov/ecommerce-behavior-data-from-multi-category-store
+```
+
+本项目使用其中的：
+
+```text
+2019-Oct.csv
+```
+
+该数据集记录了大型多品类电商网站中的用户行为事件，每一行表示一次用户与商品之间的交互行为。主要字段包括：
 
 | 字段 | 含义 |
 |---|---|
-| event_time | 用户行为发生时间 |
-| event_type | 行为类型，包括 view、cart、purchase |
-| product_id / item_id | 商品 ID |
-| category_id | 商品类目 ID |
-| category_code | 商品类目编码 |
-| brand | 商品品牌 |
+| event_time | 行为发生时间 |
+| event_type | 行为类型，例如 view、cart、purchase |
+| product_id | 商品 ID |
+| category_id | 类目 ID |
+| category_code | 类目编码 |
+| brand | 品牌 |
 | price | 商品价格 |
 | user_id | 用户 ID |
 | user_session | 用户会话 ID |
 
-为了保证后续漏斗分析和建模样本的数据口径一致，本项目在 `01_data_understanding.ipynb` 中完成统一数据清洗，并保存为 clean 数据集：
+---
 
-```text
-data/processed/ecommerce_behavior_2019_10_01_15_clean.csv
-```
+### 本项目使用的数据范围
 
-最终分析区间为：
+由于原始数据文件较大，本项目没有使用完整 2019 年 10 月全量数据，而是读取原始文件前 21,000,000 行，并截取以下完整时间区间：
 
 ```text
 2019-10-01 00:00:00 至 2019-10-15 23:59:59
 ```
 
-clean 数据规模如下：
+经过字段统一、时间处理和时间窗口截取后，保存为 clean 数据集：
 
-| 指标 | 数值 |
-|---|---:|
-| 总行为数 | 20,442,805 |
-| 用户数 | 1,781,811 |
-| 商品数 | 142,434 |
-| 类目数 | 583 |
+```text
+data/processed/ecommerce_behavior_2019_10_01_15_clean.csv
+```
 
-行为分布如下：
+该 clean 数据集用于后续漏斗分析和用户级特征工程。
 
-| 行为类型 | 行为次数 | 占比 |
-|---|---:|---:|
-| view | 19,686,918 | 96.30% |
-| cart | 400,024 | 1.96% |
-| purchase | 355,863 | 1.74% |
+---
 
-从行为分布可以看出，电商场景中浏览行为占绝大多数，加购和购买行为占比较低，数据具有典型的转化漏斗特征。
+### 未上传的数据文件说明
+
+由于 GitHub 对单文件大小有限制，同时为了避免仓库体积过大，本项目没有上传以下大文件：
+
+```text
+data/raw/2019-Oct.csv
+data/raw/2019-Oct.csv.zip
+data/processed/ecommerce_behavior_2019_10_01_15_clean.csv
+data/processed/model_data_user_level_7d.csv
+data/processed/test_data_for_model_interpretation.csv
+outputs/tables/test_prediction_results.csv
+```
+
+这些文件均可以通过 notebooks 重新生成。
+
+---
+
+### 本地复现方式
+
+如果需要在本地完整复现项目，请按以下步骤操作：
+
+1. 从 Kaggle 下载原始数据集：
+
+```text
+eCommerce behavior data from multi category store
+```
+
+2. 将 `2019-Oct.csv` 放入以下路径：
+
+```text
+data/raw/2019-Oct.csv
+```
+
+3. 按顺序运行 notebooks：
+
+```text
+notebooks/01_data_understanding.ipynb
+notebooks/02_funnel_analysis.ipynb
+notebooks/03_user_level_feature_engineering.ipynb
+notebooks/04_modeling_gbdt_compare.ipynb
+notebooks/05_shap_interpretation.ipynb
+```
+
+运行完成后，将自动生成：
+
+```text
+data/processed/ecommerce_behavior_2019_10_01_15_clean.csv
+data/processed/model_data_user_level_7d.csv
+data/processed/test_data_for_model_interpretation.csv
+outputs/tables/test_prediction_results.csv
+```
+
+---
+
+### 不上传原始数据和中间大表原因
+
+本项目没有上传大数据文件，主要原因包括：
+
+1. 原始 CSV 文件体积约数 GB，不适合直接放入 GitHub 仓库；
+2. processed 中间数据可以由 notebook 自动生成；
+3. `test_prediction_results.csv` 是测试集逐行预测结果，体积较大，适合本地保存，不适合上传；
+4. 仓库重点展示项目代码、分析流程、模型评估结果、图表和小体积汇总表。
+
+因此，本仓库保留：
+
+```text
+notebooks/
+outputs/figures/
+outputs/tables/ 中的小型结果表
+outputs/models/
+README.md
+requirements.txt
+```
+
+不保留大体积原始数据和中间明细数据。
 
 ---
 
