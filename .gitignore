@@ -1,0 +1,46 @@
+# =========================
+# Raw and processed data
+# =========================
+data/raw/*
+data/processed/*
+
+# Keep folder structure
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# =========================
+# Large output tables
+# =========================
+outputs/tables/test_prediction_results.csv
+
+# =========================
+# Jupyter temporary files
+# =========================
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# =========================
+# Python cache
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+
+# =========================
+# System files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Virtual environments
+# =========================
+venv/
+.env/
+.venv/
+
+# =========================
+# IDE files
+# =========================
+.vscode/
+.idea/

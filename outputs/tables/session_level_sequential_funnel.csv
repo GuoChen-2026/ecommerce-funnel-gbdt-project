@@ -1,0 +1,4 @@
+﻿funnel_step,session_count,step_conversion_rate,overall_conversion_rate
+view,4382818,,1.0
+cart_after_view,242745,0.055385598945701144,0.055385598945701144
+purchase_after_cart,123376,0.508253517065233,0.02814992545891707

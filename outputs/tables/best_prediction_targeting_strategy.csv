@@ -1,0 +1,2 @@
+﻿model,top_k,top_n,overall_purchase_rate,topk_purchase_rate,top_purchase_count,random_expected_purchase,incremental_purchase_vs_random,contact_cost,purchase_profit,gross_profit,total_contact_cost,net_profit,roi
+CatBoost,0.2,633833,0.0116084095257809,0.040177775533934014,25466,7357.793034954285,18108.206965045716,1.0,100.0,2546600.0,633833.0,1912767.0,3.017777553393402
